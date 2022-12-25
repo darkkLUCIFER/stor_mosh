@@ -9,5 +9,13 @@
 </head>
 <body>
 <h1>hello</h1>
+<ul>
+    {% for product in products %}
+        <li>
+            {{ product.title }}
+        </li>
+    {% endfor %}
+</ul>
+
 </body>
 </html>

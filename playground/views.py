@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from django.db.models import Count, Min, Max
+from django.db.models import Value, F
+from store.models import Product, Order
 
-
-# Create your views here.
 
 def hello(request):
-    return render(request, 'hello.html')
+    query_set = Product.objects.annotate(is_new=F('id'))
+    return render(request, 'playground/hello.html', {'products': query_set})
