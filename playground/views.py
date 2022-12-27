@@ -7,10 +7,7 @@ from store.models import Product, Order, Collection, OrderItem
 from tags.models import TaggedItem
 
 
-# @transaction.atomic()
 def hello(request):
-    with transaction.atomic():
-        order = Order.objects.create(customer_id=1)
+    queryset = Product.objects.raw('SELECT * FROM store_product')
 
-        item = OrderItem.objects.create(order=order, product_id=1, quantity=1, unit_price=10)
-    return render(request, 'playground/hello.html', {})
+    return render(request, 'playground/hello.html', {'result': list(queryset)})
