@@ -3,7 +3,7 @@ from django.db.models import Count
 from django.utils.html import format_html, urlencode
 from django.urls import reverse
 
-from store.models import Customer, Collection, Product, Order
+from store.models import Customer, Collection, Product, Order, OrderItem
 
 
 @admin.register(Collection)
@@ -38,6 +38,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ['unit_price']
     list_per_page = 10
     list_select_related = ['collection']
+    search_fields = ['title']
 
     def collection_title(self, product):
         return product.collection.title
@@ -64,7 +65,14 @@ class CustomerAdmin(admin.ModelAdmin):
     search_fields = ['first_name']
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 1
+    autocomplete_fields = ['product']
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     autocomplete_fields = ['customer']
     list_display = ['placed_at', 'customer']
+    inlines = [OrderItemInline]
