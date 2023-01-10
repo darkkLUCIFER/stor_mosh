@@ -28,4 +28,5 @@ urlpatterns = [
 
     # apps
     path('playground/', include('playground.urls', namespace='playground')),
+    path('api/v1/', include('store.urls', namespace='store')),
 ]
