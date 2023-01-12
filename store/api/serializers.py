@@ -21,6 +21,7 @@ class ProductSerializer(serializers.Serializer):
     # )
     # collection = serializers.StringRelatedField()
     collection = CollectionSerializer()
+
     # collection = serializers.HyperlinkedRelatedField(
     #     queryset=Collection.objects.all(),
     #     view_name='collection-detail',
